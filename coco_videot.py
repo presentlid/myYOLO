@@ -182,15 +182,17 @@ if __name__=="__main__":
         if success:
             
             for box,score,id in zip(det_boxes_show,scores_show,ids_show):
-                label = '%s:%.2f'%(dic_labels[id],score)
-                plot_one_box(box, img0, color=(255,0,0), label=label, line_thickness=None)
+                # 人 | 手机 | 鼠标 | 笔记本 | 键盘 
+                if id==0 or id==67 or id==64 or id==63 or id==66:
+                    label = '%s:%.2f'%(dic_labels[id],score)
+                    plot_one_box(box, img0, color=(0,0,255), label=label, line_thickness=None)
                 
             str_FPS = FPS_show
             
             cv2.putText(img0,str_FPS,(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),3)
             
-            
             cv2.imshow("video",img0)
+            
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release() 
