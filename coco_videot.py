@@ -177,6 +177,7 @@ if __name__=="__main__":
     ids_show  =[]
     FPS_show = ""
     
+    t1 = time.time()
     while True:
         success, img0 = cap.read()
         if success:
@@ -188,9 +189,12 @@ if __name__=="__main__":
                     plot_one_box(box, img0, color=(0,0,255), label=label, line_thickness=None)
                 
             str_FPS = FPS_show
-            
-            cv2.putText(img0,str_FPS,(50,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),3)
-            
+            cv2.putText(img0,str_FPS,(50,50),cv2.FONT_HERSHEY_COMPLEX,0.7,(0,0,255),2)
+
+            t2 = time.time()
+            cv2.putText(img0,"FPS: %.2f"%(1./(t2-t1)),(50,75),cv2.FONT_HERSHEY_COMPLEX,0.7,(0,255,0),2)
+            t1 = t2
+
             cv2.imshow("video",img0)
             
         if cv2.waitKey(1) & 0xFF == ord('q'):
