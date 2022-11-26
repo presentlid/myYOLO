@@ -78,7 +78,8 @@ def myThread():
             gFlag = False
         else:
             gFlag = True
-        print(gFlag)
+        print(t)
+        time.sleep(0.1)
 
 if __name__ == "__main__":
 
