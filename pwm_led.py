@@ -73,9 +73,12 @@ def myThread():
     global gFlag
     while True:
         # 以下请补充和温度传感器有关的代码：
-        gFlag = not gFlag
+        t = m_ds18b20.read()
+        if t < 28.0:
+            gFlag = False
+        else:
+            gFlag = True
         print(gFlag)
-        time.sleep(5)
 
 if __name__ == "__main__":
 
@@ -89,14 +92,11 @@ if __name__ == "__main__":
     
     # 定义 RGB_LED 对象
     m_RGB_LED = RGB_LED(pin_R,pin_G,pin_B)
-    
-    # 定义显示的颜色（R，G，B）
-    colors = [(255,0,0),(0,255,0),(0,0,255),(255,255,0),(0,197,204),(192,255,62),(148,0,211),(118,238,00)]
 
     # 温度传感器线程
     global gFlag
     gFlag = False
-    str_id = "28-0300a2794829"
+    str_id = "28-3ce1e381284c"
     m_ds18b20 =  Ds18b20(str_id)
     m_thread = Thread(target=myThread, args=([]),daemon=True)
     m_thread.start()
